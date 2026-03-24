@@ -6,5 +6,5 @@ import org.jeecg.modules.coalconfig.entity.Device;
 
 public interface DeviceService {
     Device create(DeviceCreateDTO dto);
-    Page<Device> page(String keyword, long pageNo, long pageSize);
+    Page<Device> page(String keyword, String processSection, long pageNo, long pageSize);
 }

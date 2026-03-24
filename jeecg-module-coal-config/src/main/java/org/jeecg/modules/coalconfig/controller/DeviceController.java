@@ -21,8 +21,9 @@ public class DeviceController {
 
     @GetMapping("/page")
     public Page<Device> page(@RequestParam(required = false) String keyword,
+                             @RequestParam(required = false) String processSection,
                              @RequestParam(defaultValue = "1") long pageNo,
                              @RequestParam(defaultValue = "10") long pageSize) {
-        return deviceService.page(keyword, pageNo, pageSize);
+        return deviceService.page(keyword, processSection, pageNo, pageSize);
     }
 }
