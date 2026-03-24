@@ -19,3 +19,21 @@ export interface Point {
   addr: string;
   collectCycleMs: number;
 }
+
+export interface RequirementItem {
+  module: string;
+  feature: string;
+  capability: string;
+  priority: 'P0' | 'P1' | 'P2';
+  status: '已完成' | '部分完成' | '规划中';
+  suggestion: string;
+}
+
+export interface OverviewMetrics {
+  deviceTotal: number;
+  pointTotal: number;
+  onlineDevice: number;
+  alarmToday: number;
+  controlToday: number;
+  refreshMinMs: number;
+}

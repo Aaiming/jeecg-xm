@@ -17,13 +17,22 @@ public class ControlServiceImpl implements ControlService {
 
     @Override
     public Map<String, Object> issue(IssueControlDTO dto) {
+        if (Boolean.FALSE.equals(dto.getConfirmed())) {
+            return Map.of(
+                    "success", false,
+                    "message", "请完成二次确认后再执行控制命令"
+            );
+        }
+
+        String executeMsg = "SIMULATED-" + dto.getMode();
         jdbcTemplate.update("""
             insert into coal_config.cfg_control_log(device_id, point_id, command, command_value, execute_result, execute_msg, operator, created_at)
-            values(?, ?, ?, ?, 'SUCCESS', 'SIMULATED', ?, ?)
-        """, dto.getDeviceId(), dto.getPointId(), dto.getCommand(), dto.getCommandValue(), dto.getOperator(), LocalDateTime.now());
+            values(?, ?, ?, ?, 'SUCCESS', ?, ?, ?)
+        """, dto.getDeviceId(), dto.getPointId(), dto.getCommand(), dto.getCommandValue(), executeMsg, dto.getOperator(), LocalDateTime.now());
 
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
+        result.put("mode", dto.getMode());
         result.put("message", "命令已受理（模拟下发）");
         return result;
     }

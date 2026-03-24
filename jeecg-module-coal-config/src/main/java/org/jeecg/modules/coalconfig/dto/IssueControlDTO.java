@@ -14,4 +14,8 @@ public class IssueControlDTO {
     private String commandValue;
     @NotBlank
     private String operator;
+    @NotBlank
+    private String mode;
+    @NotNull
+    private Boolean confirmed;
 }

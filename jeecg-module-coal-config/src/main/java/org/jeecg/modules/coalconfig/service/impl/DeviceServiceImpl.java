@@ -32,11 +32,14 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Page<Device> page(String keyword, long pageNo, long pageSize) {
+    public Page<Device> page(String keyword, String processSection, long pageNo, long pageSize) {
         LambdaQueryWrapper<Device> wrapper = new LambdaQueryWrapper<>();
         if (keyword != null && !keyword.isBlank()) {
-            wrapper.like(Device::getDeviceName, keyword)
-                    .or().like(Device::getDeviceCode, keyword);
+            wrapper.and(w -> w.like(Device::getDeviceName, keyword)
+                    .or().like(Device::getDeviceCode, keyword));
+        }
+        if (processSection != null && !processSection.isBlank()) {
+            wrapper.eq(Device::getProcessSection, processSection);
         }
         wrapper.orderByDesc(Device::getUpdatedAt);
         return deviceMapper.selectPage(Page.of(pageNo, pageSize), wrapper);
