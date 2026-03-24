@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: jeecg-module-coal-config
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/jeecg_boot
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      schema: coal_config
+
+server:
+  port: 9092
